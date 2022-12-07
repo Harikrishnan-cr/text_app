@@ -25,7 +25,7 @@ class CatagoryController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
+
     getCatData();
     super.onInit();
   }
