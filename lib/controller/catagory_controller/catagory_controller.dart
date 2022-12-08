@@ -9,7 +9,7 @@ class CatagoryController extends GetxController {
   getCatData() async {
     try {
       var data = await CatagoryDataServices().getCatProducts();
-      // log(data!.data![0].catName.toString());
+     
 
       if (data != null) {
         catData = data;
@@ -17,7 +17,7 @@ class CatagoryController extends GetxController {
         update();
       }
     } catch (e) {
-      log(e.toString());
+      log(e.toString()); 
 
       log('error occure');
     }

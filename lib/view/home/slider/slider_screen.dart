@@ -4,6 +4,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intertoons/controller/home_data_contoller/home_contorller.dart';
+import 'package:intertoons/view/common/circular_progress_indicator/circular_progress_common.dart';
 
 class SliderScreenWidget extends StatelessWidget {
   SliderScreenWidget({
@@ -13,10 +14,12 @@ class SliderScreenWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GetBuilder<HomeController>(builder: (context) {
-        return homeDataController.homeData.data?.sliderBanners != null
-            ? Swiper(
+    return (GetBuilder<HomeController>(builder: (context) {
+      return homeDataController.homeData.data?.sliderBanners != null
+          ? SizedBox(
+              width: double.infinity,
+              height: 200,
+              child: Swiper(
                 itemBuilder: (BuildContext context, int index) {
                   final data =
                       homeDataController.homeData.data?.sliderBanners![index];
@@ -33,8 +36,7 @@ class SliderScreenWidget extends StatelessWidget {
                                     image: imageProvider, fit: BoxFit.fill)),
                           );
                         },
-                      )
-                      );
+                      ));
                 },
                 itemCount:
                     homeDataController.homeData.data?.sliderBanners?.length ??
@@ -42,11 +44,11 @@ class SliderScreenWidget extends StatelessWidget {
                 autoplay: true,
                 pagination: const SwiperPagination(
                     margin: EdgeInsets.all(2), builder: SwiperPagination.rect),
-              )
-            : Center(
-                child: CircularProgressIndicator(),
-              );
-      }),
-    );
+              ),
+            )
+          : const CommonCircularProgressIndicator(width: double.infinity, height: 200);
+    }));
   }
 }
+
+

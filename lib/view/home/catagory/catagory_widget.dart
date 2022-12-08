@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:intertoons/controller/catagory_controller/catagory_controller.dart';
 import 'package:intertoons/view/common/catagory_tile/catagory_tile.dart';
+import 'package:intertoons/view/common/circular_progress_indicator/circular_progress_common.dart';
+
+import 'package:intertoons/view/menu/menu_screen.dart';
 
 class CatagoryWidget extends StatelessWidget {
   CatagoryWidget({Key? key}) : super(key: key);
@@ -12,10 +16,12 @@ class CatagoryWidget extends StatelessWidget {
   final catDataController = Get.put(CatagoryController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GetBuilder<CatagoryController>(builder: (context) {
-        return catDataController.catData.data != null
-            ? ListView(
+    return GetBuilder<CatagoryController>(builder: (context) {
+      return catDataController.catData.data != null
+          ? SizedBox(
+              width: double.infinity,
+              height: 130,
+              child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: List.generate(catDataController.catData.data!.length,
                     (index) {
@@ -24,16 +30,20 @@ class CatagoryWidget extends StatelessWidget {
 
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: CatagoryTilleCommon(
-                        catImage: catData?.catImg ?? catImage,
-                        catData: catData?.catName ?? ''),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.to(() => MenuScreen());
+                      },
+                      child: CatagoryTilleCommon(
+                          catImage: catData?.catImg ?? catImage,
+                          catData: catData?.catName ?? ''),
+                    ),
                   );
                 }),
-              )
-            : const Center(
-                child: CircularProgressIndicator(),
-              );
-      }),
-    );
+              ),
+            )
+          : const CommonCircularProgressIndicator(
+              width: double.infinity, height: 130);
+    });
   }
 }

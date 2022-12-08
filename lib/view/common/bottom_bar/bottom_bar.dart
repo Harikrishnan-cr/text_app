@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intertoons/controller/catagory_controller/catagory_controller.dart';
 import 'package:intertoons/controller/const/color%20const/colors.dart';
 import 'package:intertoons/controller/home_data_contoller/home_contorller.dart';
 import 'package:intertoons/view/home/home_screen.dart';
+import 'package:intertoons/view/menu/menu_screen.dart';
 
 class BottomBarScreen extends StatelessWidget {
   BottomBarScreen({Key? key}) : super(key: key);
   final homeDataController = Get.put(HomeController());
+  final catDataController = Get.put(CatagoryController());
 
   final tabs = [
     HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
-    Center(
+    MenuScreen(),
+    const Center(
+      child: Text('Others'),
+    ),
+    const Center(
       child: Text('Account'),
     )
   ];
@@ -44,8 +49,8 @@ class BottomBarScreen extends StatelessWidget {
                 icon: Icon(Icons.menu_sharp, color: blackColour),
                 label: 'Menu'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: blackColour),
-              label: 'Search',
+              icon: Icon(Icons.chat, color: blackColour),
+              label: 'Others',
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person, color: blackColour), label: 'Account'),

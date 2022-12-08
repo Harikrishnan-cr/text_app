@@ -38,7 +38,9 @@ dependencies:
   get: ^4.6.5
   card_swiper: ^2.0.4
   fancy_shimmer_image: ^2.0.2
-  hexcolor:        
+  hexcolor:
+  like_button: ^2.0.5
+  lottie:        
 
 dev_dependencies:
   flutter_test:

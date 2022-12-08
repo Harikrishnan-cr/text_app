@@ -1,22 +1,30 @@
+import 'dart:developer';
+
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intertoons/controller/const/color%20const/colors.dart';
 import 'package:intertoons/controller/const/size/height_width.dart';
 import 'package:intertoons/controller/const/style/Home%20Text/card_text_style.dart';
-import 'package:intertoons/model/home_model/home_model/featured_product.dart';
+import 'package:intertoons/model/home_model/featured_product.dart';
+
 import 'package:intertoons/view/common/add_cart_button_common/add_button_common.dart';
+import 'package:intertoons/view/full_details/full_details.dart';
 
 class ProductTile extends StatelessWidget {
-   ProductTile({
+  const ProductTile({
     Key? key,
     this.featureData
   }) : super(key: key);
-FeaturedProduct? featureData;
+final FeaturedProduct? featureData;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+      
+        Get.to(()=>FulldetailsScreen(featureData: featureData,));   
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
@@ -108,8 +116,12 @@ FeaturedProduct? featureData;
                         ),
                         Row(
                           children: [
-                            AddButton(
-                              textTile: 'Add',
+                            GestureDetector(
+                             
+                              child: AddButton(
+                                productId: featureData!.id.toString(),
+                                textTile: 'Add',
+                              ),
                             )
                           ],
                         )
