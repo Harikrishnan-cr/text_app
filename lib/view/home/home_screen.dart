@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
             onTap: () {
               Get.to(()=>CartScreen()); 
             },
-            child: Icon(Icons.shopping_cart)),
+            child: const Icon(Icons.shopping_cart)),
           consWidth15,
         ],
       ),
@@ -79,6 +79,9 @@ class HomeScreen extends StatelessWidget {
               viewAll: false,
             ),
             BestSellerWidget(),
+
+            constHeigt30,
+            constHeigt30,  
           ],
         );
       }),

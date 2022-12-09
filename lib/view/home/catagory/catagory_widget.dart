@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intertoons/controller/cart_controller/cart_controller.dart';
 
 import 'package:intertoons/controller/catagory_controller/catagory_controller.dart';
+import 'package:intertoons/controller/const/color%20const/colors.dart';
+import 'package:intertoons/controller/const/size/height_width.dart';
+import 'package:intertoons/view/common/bottom_bar/bottom_bar.dart';
 import 'package:intertoons/view/common/catagory_tile/catagory_tile.dart';
 import 'package:intertoons/view/common/circular_progress_indicator/circular_progress_common.dart';
+import 'package:intertoons/view/menu/menu_items/menu_items.dart';
 
-import 'package:intertoons/view/menu/menu_screen.dart';
+
 
 class CatagoryWidget extends StatelessWidget {
   CatagoryWidget({Key? key}) : super(key: key);
@@ -32,7 +37,9 @@ class CatagoryWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Get.to(() => MenuScreen());
+                     
+
+                        Get.to(()=>CatagoryHomePageDetails(catgaryName: catData!.catName!));    
                       },
                       child: CatagoryTilleCommon(
                           catImage: catData?.catImg ?? catImage,
@@ -45,5 +52,37 @@ class CatagoryWidget extends StatelessWidget {
           : const CommonCircularProgressIndicator(
               width: double.infinity, height: 130);
     });
+  }
+}
+
+
+
+
+
+
+class CatagoryHomePageDetails extends StatelessWidget {
+   CatagoryHomePageDetails({Key? key,required this.catgaryName}) : super(key: key);
+final String catgaryName;
+
+final cartController = Get.put(CartController());
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(catgaryName),
+        backgroundColor: greenColour,
+        elevation: 0,
+
+        actions: const [
+          Icon(Icons.search),
+          consWidth15
+        ], 
+      ),
+      body: MenuItemsScreenWidget(catgaryName: catgaryName),
+      bottomSheet: GetBuilder<CartController>(builder: (controller) {    
+   
+        return controller.cartLength != 0 ? CommonCartTab(cartCount: controller.getCartItems.length.toString(),) : SizedBox();
+      },), 
+    );
   }
 }

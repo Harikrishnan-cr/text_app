@@ -1,6 +1,8 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intertoons/controller/cart_controller/cart_controller.dart';
 
 import 'package:intertoons/controller/const/color%20const/colors.dart';
 import 'package:intertoons/controller/const/sample_images/sample_file.dart';
@@ -10,6 +12,7 @@ import 'package:intertoons/controller/const/style/text_style.dart';
 import 'package:intertoons/model/home_model/bestseller_product.dart';
 import 'package:intertoons/model/home_model/featured_product.dart';
 import 'package:intertoons/view/common/add_cart_button_common/add_button_common.dart';
+import 'package:intertoons/view/common/bottom_bar/bottom_bar.dart';
 
 class FulldetailsScreen extends StatelessWidget {
   const FulldetailsScreen({Key? key, required this.featureData})
@@ -91,6 +94,8 @@ class FulldetailsScreen extends StatelessWidget {
               Row(
                 children: [
                   AddButton(
+                    productPrice: num.parse(featureData!.price!),
+                    productId: featureData!.id.toString(),
                     textTile: 'Add',
                     height: 40,
                     width: 85,
@@ -155,11 +160,14 @@ class FulldetailsScreenBestSeller extends StatelessWidget {
           ],
         ),
       ),
+      bottomSheet: GetBuilder<CartController>(builder: (controller) {  
+        return controller.cartLength != 0 ? CommonCartTab(cartCount: controller.cartLength.toString(),): const SizedBox(); 
+      },), 
       bottomNavigationBar: Container(
         width: double.infinity,
         color: greenProductScreen,
         height: 90,
-        child: Padding(
+        child: Padding(  
           padding: const EdgeInsets.symmetric(horizontal: 17),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -185,6 +193,8 @@ class FulldetailsScreenBestSeller extends StatelessWidget {
               Row(
                 children: [
                   AddButton(
+                    productPrice: num.parse(featureData!.price!),
+                    productId: featureData!.id.toString(),
                     textTile: 'Add',
                     height: 40,
                     width: 85,

@@ -1,16 +1,21 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intertoons/controller/cart_controller/cart_controller.dart';
 import 'package:intertoons/controller/catagory_controller/catagory_controller.dart';
 import 'package:intertoons/controller/const/color%20const/colors.dart';
+import 'package:intertoons/controller/const/style/text_style.dart';
 import 'package:intertoons/controller/home_data_contoller/home_contorller.dart';
+import 'package:intertoons/view/cart/cart_screen.dart';
 import 'package:intertoons/view/home/home_screen.dart';
 import 'package:intertoons/view/menu/menu_screen.dart';
 
 class BottomBarScreen extends StatelessWidget {
   BottomBarScreen({Key? key}) : super(key: key);
-  final homeDataController = Get.put(HomeController());
-  final catDataController = Get.put(CatagoryController());
+ final homeDataController = Get.put(HomeController());
+final catDataController = Get.put(CatagoryController());   
 
   final tabs = [
     HomeScreen(),
@@ -24,11 +29,17 @@ class BottomBarScreen extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+ log('cccccc'); 
     return Scaffold(
       body: GetBuilder<HomeController>(builder: (context) {
-        return tabs[homeDataController.currentIndex];
+
+        return tabs[context.currentIndex];  
       }),
-      bottomNavigationBar: GetBuilder<HomeController>(builder: (context) {
+      bottomSheet: GetBuilder<CartController>(builder: (controller) {    
+       
+        return controller.cartLength != 0 ? CommonCartTab(cartCount: controller.cartLength.toString()) :const SizedBox();    
+      },),
+      bottomNavigationBar: GetBuilder<HomeController>(builder: (homeDataController) {
         return BottomNavigationBar(
           currentIndex: homeDataController.currentIndex,
           type: BottomNavigationBarType.fixed,
@@ -60,6 +71,57 @@ class BottomBarScreen extends StatelessWidget {
           },
         );
       }),
+    );
+  }
+}
+
+class CommonCartTab extends StatelessWidget {
+   CommonCartTab({
+    Key? key,
+    required this.cartCount,
+   
+  }) : super(key: key);
+final String cartCount;
+
+num carTotal = 0;
+final cartController = Get.put(CartController());
+  @override
+  Widget build(BuildContext context) {
+
+cartController.getCartItems.forEach((key, value) {
+  carTotal = value.productPrice + carTotal; 
+});
+
+log(total.toString());   
+    return Container(
+      width: double.infinity,
+      height: 50,
+      color: const Color.fromARGB(210, 0, 0, 0),
+      child:Padding(
+        padding: const EdgeInsets.only(left: 10,right: 10),
+        child: Row(
+          
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,  
+          children: [
+            Row(
+              children: [
+                Text('$cartCount Item in cart - € $carTotal',style: addTextStyle())    
+              ],
+            ),
+
+            GestureDetector(
+              onTap: () {
+                Get.to(()=>CartScreen()); 
+              },
+              child: Row(
+                children: [
+                  Text('View Cart',style: addTextStyle(),)
+                ],
+              ),
+            )
+          ],
+        ),
+      )
     );
   }
 }

@@ -73,7 +73,10 @@ class MenuScreenTile extends StatelessWidget {
                                 '€ ${catData.specialPrice}',
                                 style: cardCurrencyTextStyle(),
                               ),
-                         AddButton()
+                         AddButton(
+                          productPrice: num.parse(catData.price!),
+                          productId: catData.id.toString(),
+                         )
                       ],
                     )
                   ],

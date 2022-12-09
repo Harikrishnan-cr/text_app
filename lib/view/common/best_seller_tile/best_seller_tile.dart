@@ -149,6 +149,8 @@ class BestSellerTile extends StatelessWidget {
                 ),
                 constHeigt15,
                  AddButton(
+                  productPrice: num.parse(bestSellerData!.price!),
+                  productId: bestSellerData!.id.toString(),
                   width: 100,
                   height: 35,
                   textTile: 'Add',

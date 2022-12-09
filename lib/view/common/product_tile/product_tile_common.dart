@@ -20,6 +20,8 @@ class ProductTile extends StatelessWidget {
 final FeaturedProduct? featureData;
   @override
   Widget build(BuildContext context) {
+
+
     return GestureDetector(
       onTap: () {
       
@@ -119,6 +121,7 @@ final FeaturedProduct? featureData;
                             GestureDetector(
                              
                               child: AddButton(
+                                productPrice: num.parse(featureData!.price!), 
                                 productId: featureData!.id.toString(),
                                 textTile: 'Add',
                               ),
