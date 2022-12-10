@@ -4,13 +4,18 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+# Project Title :-  text_app
 
-A few resources to get you started if this is your first Flutter project:
+This app is about 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Get Data using Api 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Some basic Functions Of a Cart were User Can Add to Cart and Increase the Qunatity of the product and view cart option on every screen with No. of items in cart and total price
+
+State Management Used : - GetX
+
+
+## Authors
+- [@Harikrishnan-cr](https://www.github.com/Harikrishnan-cr)
+
+
