@@ -1,5 +1,7 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intertoons/controller/cart_controller/cart_controller.dart';
 import 'package:intertoons/controller/const/color%20const/colors.dart';
 import 'package:intertoons/controller/const/style/Home%20Text/card_text_style.dart';
 import 'package:intertoons/model/home_model/featured_product.dart';
@@ -73,10 +75,21 @@ class MenuScreenTile extends StatelessWidget {
                                 '€ ${catData.specialPrice}',
                                 style: cardCurrencyTextStyle(),
                               ),
-                         AddButton(
-                          productPrice: num.parse(catData.price!),
-                          productId: catData.id.toString(),
-                         )
+                        GetBuilder<CartController>(builder: (cartController) {
+                          return cartController.getCartItems
+                                  .containsKey(catData.id.toString())
+                              ? AddButton(
+                                  productName: catData.name.toString(),
+                                  productPrice: num.parse(catData.price!),
+                                  productId: catData.id.toString(),
+                                )
+                              : AddButton(
+                                  productName: catData.name.toString(),
+                                  productPrice: num.parse(catData.price!),
+                                  productId: catData.id.toString(),
+                                  textTile: 'Add',
+                                );
+                        })
                       ],
                     )
                   ],

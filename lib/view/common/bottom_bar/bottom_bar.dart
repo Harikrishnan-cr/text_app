@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:intertoons/controller/cart_controller/cart_controller.dart';
 import 'package:intertoons/controller/catagory_controller/catagory_controller.dart';
@@ -14,8 +13,8 @@ import 'package:intertoons/view/menu/menu_screen.dart';
 
 class BottomBarScreen extends StatelessWidget {
   BottomBarScreen({Key? key}) : super(key: key);
- final homeDataController = Get.put(HomeController());
-final catDataController = Get.put(CatagoryController());   
+  final homeDataController = Get.put(HomeController());
+  final catDataController = Get.put(CatagoryController());
 
   final tabs = [
     HomeScreen(),
@@ -29,17 +28,20 @@ final catDataController = Get.put(CatagoryController());
   ];
   @override
   Widget build(BuildContext context) {
- log('cccccc'); 
+    log('cccccc');
     return Scaffold(
       body: GetBuilder<HomeController>(builder: (context) {
-
-        return tabs[context.currentIndex];  
+        return tabs[context.currentIndex];
       }),
-      bottomSheet: GetBuilder<CartController>(builder: (controller) {    
-       
-        return controller.cartLength != 0 ? CommonCartTab(cartCount: controller.cartLength.toString()) :const SizedBox();    
-      },),
-      bottomNavigationBar: GetBuilder<HomeController>(builder: (homeDataController) {
+      bottomSheet: GetBuilder<CartController>(
+        builder: (controller) {
+          return controller.cartLength != 0
+              ? CommonCartTab(cartCount: controller.cartLength.toString())
+              : const SizedBox();
+        },
+      ),
+      bottomNavigationBar:
+          GetBuilder<HomeController>(builder: (homeDataController) {
         return BottomNavigationBar(
           currentIndex: homeDataController.currentIndex,
           type: BottomNavigationBarType.fixed,
@@ -76,52 +78,51 @@ final catDataController = Get.put(CatagoryController());
 }
 
 class CommonCartTab extends StatelessWidget {
-   CommonCartTab({
+  CommonCartTab({
     Key? key,
     required this.cartCount,
-   
   }) : super(key: key);
-final String cartCount;
+  final String cartCount;
 
-num carTotal = 0;
-final cartController = Get.put(CartController());
+  final cartController = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
+    cartController.findTheTotalOfCart();
 
-cartController.getCartItems.forEach((key, value) {
-  carTotal = value.productPrice + carTotal; 
-});
-
-log(total.toString());   
     return Container(
-      width: double.infinity,
-      height: 50,
-      color: const Color.fromARGB(210, 0, 0, 0),
-      child:Padding(
-        padding: const EdgeInsets.only(left: 10,right: 10),
-        child: Row(
+        width: double.infinity,
+        height: 50,
+        color: const Color.fromARGB(210, 0, 0, 0),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: GetBuilder<CartController>(builder: (cartController) {
           
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,  
-          children: [
-            Row(
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('$cartCount Item in cart - € $carTotal',style: addTextStyle())    
+                Row(
+                  children: [
+                    Text(
+                        '$cartCount Item in cart - € ${cartController.userCartTotalInString}',    
+                        style: addTextStyle())
+                  ],
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => CartScreen());
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        'View Cart',
+                        style: addTextStyle(),
+                      )
+                    ],
+                  ),
+                )
               ],
-            ),
-
-            GestureDetector(
-              onTap: () {
-                Get.to(()=>CartScreen()); 
-              },
-              child: Row(
-                children: [
-                  Text('View Cart',style: addTextStyle(),)
-                ],
-              ),
-            )
-          ],
-        ),
-      )
-    );
+            );
+          }),
+        ));
   }
 }

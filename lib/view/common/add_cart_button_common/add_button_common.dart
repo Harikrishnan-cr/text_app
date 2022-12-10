@@ -6,7 +6,7 @@ import 'package:intertoons/controller/cart_controller/cart_controller.dart';
 import 'package:intertoons/controller/const/color%20const/colors.dart';
 import 'package:intertoons/controller/const/style/text_style.dart';
 import 'package:intertoons/controller/home_data_contoller/home_contorller.dart';
-
+import 'package:intertoons/view/common/common_alert_box/common_alert_box.dart';
 
 class AddButton extends StatelessWidget {
   AddButton(
@@ -15,6 +15,7 @@ class AddButton extends StatelessWidget {
       this.width,
       required this.productId,
       required this.productPrice,
+      required this.productName,
       this.textTile})
       : super(key: key);
   final double? width;
@@ -22,50 +23,30 @@ class AddButton extends StatelessWidget {
   final String? productId;
   final String? textTile;
   final num productPrice;
+  final String productName;
 
-  final cartController = Get.put(CartController()); 
-  final homeController = Get.put(HomeController()); 
+  final cartController = Get.put(CartController());
+  final homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
-
-  
-    return GestureDetector(   
+    return GestureDetector(
       onTap: () async {
-log('dddddddddddddd');  
+        log('dddddddddddddd');
 
-
-
-        //  for (int index = 0; index < cartLength; index++) {
-              
-        //       final cartProductId = cartController.getCartItems[index]!;
-
-        //       final data = homeController.homeData.data?.featuredProducts
-        //           ?.where((element) => element.id
-        //               .toString()
-        //               .contains(cartProductId.productId))
-        //           .toList();
-        //       final producttData = data![0];
-
-        //       final priceOfProduct = producttData.specialPrice != 0
-        //           ? producttData.specialPrice.toString()
-        //           : producttData.price.toString();
-        //       var realPrice = num.parse(priceOfProduct);
-
-        //       cartTotalPrice =
-        //           cartTotalPrice + realPrice * cartProductId.productQuantity;  
-        //     }
-
-           
-        log('Add Clickedd $productId');
         cartController.cartLengthData();
-        cartController.addProductToCart(
-          productPrice: productPrice,
-            productId: productId.toString(), quantity: 1);
+
         if (textTile == null) {
-            cartController.cartLengthData();
-        } else {
+          showAlertDialogHome(
+              context: context,
+              itemName: productName,
+              productId: productId.toString());
           cartController.cartLengthData();
-          log('Already in cart');
+        } else {
+          cartController.addProductToCart(
+              productPrice: productPrice,
+              productId: productId.toString(),
+              quantity: 1);
+          cartController.cartLengthData();
         }
       },
       child: Container(
@@ -75,7 +56,7 @@ log('dddddddddddddd');
             color: greenColour, borderRadius: BorderRadius.circular(10)),
         child: Center(
             child: Text(
-          textTile ?? 'Add',
+          textTile ?? 'In cart',
           style: addTextStyle(),
         )),
       ),

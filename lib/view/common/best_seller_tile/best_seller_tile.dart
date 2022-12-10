@@ -1,12 +1,17 @@
+import 'dart:developer';
+
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intertoons/controller/cart_controller/cart_controller.dart';
 import 'package:intertoons/controller/const/color%20const/colors.dart';
 import 'package:intertoons/controller/const/sample_images/sample_file.dart';
 import 'package:intertoons/controller/const/size/height_width.dart';
 import 'package:intertoons/controller/const/style/Home%20Text/card_text_style.dart';
 import 'package:intertoons/model/home_model/bestseller_product.dart';
 import 'package:intertoons/view/common/add_cart_button_common/add_button_common.dart';
+import 'package:intertoons/view/common/is_veg_or_not/isveg_nonveg.dart';
 import 'package:intertoons/view/common/liked_button/liked_button.dart';
 
 class BestSellerTile extends StatelessWidget {
@@ -28,6 +33,10 @@ class BestSellerTile extends StatelessWidget {
   final BestsellerProduct? bestSellerData;
   @override
   Widget build(BuildContext context) {
+    final priceOfProduct = bestSellerData?.specialPrice != 0
+        ? bestSellerData?.specialPrice.toString()
+        : bestSellerData?.price.toString();
+    var realPrice = num.parse(priceOfProduct!);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -110,18 +119,7 @@ class BestSellerTile extends StatelessWidget {
                         ],
                       ),
                 constHeigt10,
-                Container(
-                  width: 20,
-                  height: 20,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.5, color: blackColour)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: CircleAvatar(
-                      backgroundColor: isVeg == 1 ? greenColour : Colors.red,
-                    ),
-                  ),
-                ),
+                IsVegOrNonVeg(isVeg: isVeg),
                 constHeigt10,
                 LikedButton(
                   productId: '',
@@ -139,6 +137,7 @@ class BestSellerTile extends StatelessWidget {
                   width: 120,
                   height: 80,
                   imageBuilder: (context, imageProvider) {
+                    log(bestSellerData!.id.toString());
                     return Container(
                       decoration: BoxDecoration(
                           image: DecorationImage(
@@ -148,13 +147,25 @@ class BestSellerTile extends StatelessWidget {
                   },
                 ),
                 constHeigt15,
-                 AddButton(
-                  productPrice: num.parse(bestSellerData!.price!),
-                  productId: bestSellerData!.id.toString(),
-                  width: 100,
-                  height: 35,
-                  textTile: 'Add',
-                )
+                GetBuilder<CartController>(builder: (cartController) {
+                  return cartController.getCartItems
+                          .containsKey(bestSellerData!.id.toString())
+                      ? AddButton(
+                          productName: bestSellerData!.name.toString(),
+                          productPrice: realPrice,
+                          productId: bestSellerData!.id.toString(),
+                          width: 100,
+                          height: 35,
+                        )
+                      : AddButton(
+                          productName: bestSellerData!.name.toString(),
+                          productPrice: realPrice,
+                          productId: bestSellerData!.id.toString(),
+                          width: 100,
+                          height: 35,
+                          textTile: 'Add',
+                        );
+                })
               ],
             ),
           )

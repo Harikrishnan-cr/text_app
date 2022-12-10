@@ -40,7 +40,8 @@ dependencies:
   fancy_shimmer_image: ^2.0.2
   hexcolor:
   like_button: ^2.0.5
-  lottie:        
+  lottie:
+  animated_splash_screen: ^1.3.0        
 
 dev_dependencies:
   flutter_test:

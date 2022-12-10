@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intertoons/controller/cart_controller/cart_controller.dart';
 import 'package:intertoons/controller/home_data_contoller/home_contorller.dart';
 
 import 'package:intertoons/view/common/best_seller_tile/best_seller_tile.dart';
@@ -14,15 +15,20 @@ class BestSellerWidget extends StatelessWidget {
   final bool isLiked = true;
  
     final homeDataController = Get.put(HomeController());
+    final cartController = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       builder: (context) {
+
+
         return Column(  
           children:homeDataController.homeData.data?.bestsellerProducts != null ?   List.generate(
               5,
               (index) {
                 final bestSellerData = homeDataController.homeData.data?.bestsellerProducts![index];
+
+               log( cartController.getCartItems.containsKey(bestSellerData?.id).toString());    
                 return Padding(  
                     padding: const EdgeInsets.only(
                         top: 4, left: 12, right: 12, bottom: 3),

@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:get/get.dart';
 import 'package:intertoons/model/cart_model/cart_model.dart';
@@ -10,7 +10,8 @@ class CartController extends GetxController {
     return _cartItems;
   }
 
-// num price = 0.0;
+  num userCartTotal = 0.0;
+  String userCartTotalInString = '';
   var cartLength = 0;
 
   void addProductToCart(
@@ -20,7 +21,7 @@ class CartController extends GetxController {
     _cartItems.putIfAbsent(
         productId,
         () => CartModelScreen(
-            productPrice: productPrice * quantity,
+            productPrice: productPrice,
             id: DateTime.now().toString(),
             productId: productId,
             productQuantity: quantity));
@@ -33,7 +34,7 @@ class CartController extends GetxController {
     _cartItems.update(
         productId,
         (value) => CartModelScreen(
-            productPrice: productPrice * value.productQuantity,
+            productPrice: productPrice * value.productQuantity + productPrice,
             id: value.id,
             productId: productId,
             productQuantity: value.productQuantity + 1));
@@ -46,7 +47,7 @@ class CartController extends GetxController {
     _cartItems.update(
         productId,
         (value) => CartModelScreen(
-            productPrice: productPrice * value.productQuantity,
+            productPrice: productPrice * value.productQuantity - productPrice,
             id: value.id,
             productId: productId,
             productQuantity: value.productQuantity - 1));
@@ -54,8 +55,21 @@ class CartController extends GetxController {
     update();
   }
 
+  void clearTheCart({required String productId}) {
+    _cartItems.remove(productId);
+    cartLength--;
 
-  
+    update();
+  }
+
+  void findTheTotalOfCart() {
+    userCartTotal = 0;
+    _cartItems.forEach((key, value) {
+      userCartTotal = (value.productPrice + userCartTotal);
+    });
+
+    userCartTotalInString = userCartTotal.toStringAsFixed(2);
+  }
 
   void cartLengthData() {
     cartLength = _cartItems.length;

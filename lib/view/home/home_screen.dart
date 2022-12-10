@@ -3,14 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intertoons/controller/catagory_controller/catagory_controller.dart';
-import 'package:intertoons/controller/const/color%20const/colors.dart';
 
 import 'package:intertoons/controller/const/size/height_width.dart';
 
 import 'package:intertoons/controller/home_data_contoller/home_contorller.dart';
-import 'package:intertoons/view/cart/cart_screen.dart';
 
 import 'package:intertoons/view/common/app_common_head/app_heading.dart';
+import 'package:intertoons/view/common/home_app_bar/app_bar_home.dart';
 import 'package:intertoons/view/home/additional_banner/additional_banners.dart';
 import 'package:intertoons/view/home/best_seller/best_seller.dart';
 
@@ -28,39 +27,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     log('rrrrr');
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: greenColour,
-        elevation: 0,
-        
-        title: Container(
-          width: double.infinity,
-          height: 40,
-          decoration: BoxDecoration(
-              color: whiteColour, borderRadius: BorderRadius.circular(12)),
-          child: Row(
-            children: [
-              consWidth10,
-              Icon(Icons.search, color: greyBacground),
-              consWidth10,
-              Text(
-                'Search Your Product',
-                style: TextStyle(
-                    color: greyBacground,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15),
-              ),
-            ],
-          ),
-        ),
-        actions:  [
-          GestureDetector(
-            onTap: () {
-              Get.to(()=>CartScreen()); 
-            },
-            child: const Icon(Icons.shopping_cart)),
-          consWidth15,
-        ],
-      ),
+      appBar: appBarHome(),
       body: GetBuilder<HomeController>(builder: (context) {
         return ListView(
           children: [
@@ -79,9 +46,8 @@ class HomeScreen extends StatelessWidget {
               viewAll: false,
             ),
             BestSellerWidget(),
-
             constHeigt30,
-            constHeigt30,  
+            constHeigt30,
           ],
         );
       }),

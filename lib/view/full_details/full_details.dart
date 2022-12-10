@@ -64,6 +64,15 @@ class FulldetailsScreen extends StatelessWidget {
           ],
         ),
       ),
+      bottomSheet: GetBuilder<CartController>(
+        builder: (cartController) {
+          return cartController.cartLength != 0
+              ? CommonCartTab(
+                  cartCount: cartController.cartLength.toString(),
+                )
+              : const SizedBox();
+        },
+      ),
       bottomNavigationBar: Container(
         width: double.infinity,
         color: greenProductScreen,
@@ -93,13 +102,25 @@ class FulldetailsScreen extends StatelessWidget {
               ),
               Row(
                 children: [
-                  AddButton(
-                    productPrice: num.parse(featureData!.price!),
-                    productId: featureData!.id.toString(),
-                    textTile: 'Add',
-                    height: 40,
-                    width: 85,
-                  )
+                  GetBuilder<CartController>(builder: (cartContoler) {
+                    return cartContoler.getCartItems
+                            .containsKey(featureData?.id.toString())
+                        ? AddButton(
+                            productName: featureData!.name.toString(),
+                            productPrice: num.parse(featureData!.price!),
+                            productId: featureData!.id.toString(),
+                            height: 40,
+                            width: 85,
+                          )
+                        : AddButton(
+                            productName: featureData!.name.toString(),
+                            productPrice: num.parse(featureData!.price!),
+                            productId: featureData!.id.toString(),
+                            textTile: 'Add',
+                            height: 40,
+                            width: 85,
+                          );
+                  })
                 ],
               )
             ],
@@ -160,14 +181,20 @@ class FulldetailsScreenBestSeller extends StatelessWidget {
           ],
         ),
       ),
-      bottomSheet: GetBuilder<CartController>(builder: (controller) {  
-        return controller.cartLength != 0 ? CommonCartTab(cartCount: controller.cartLength.toString(),): const SizedBox(); 
-      },), 
+      bottomSheet: GetBuilder<CartController>(
+        builder: (cartController) {
+          return cartController.cartLength != 0
+              ? CommonCartTab(
+                  cartCount: cartController.cartLength.toString(),
+                )
+              : const SizedBox();
+        },
+      ),
       bottomNavigationBar: Container(
         width: double.infinity,
         color: greenProductScreen,
         height: 90,
-        child: Padding(  
+        child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 17),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -192,13 +219,25 @@ class FulldetailsScreenBestSeller extends StatelessWidget {
               ),
               Row(
                 children: [
-                  AddButton(
-                    productPrice: num.parse(featureData!.price!),
-                    productId: featureData!.id.toString(),
-                    textTile: 'Add',
-                    height: 40,
-                    width: 85,
-                  )
+                  GetBuilder<CartController>(builder: (cartContoler) {
+                    return cartContoler.getCartItems
+                            .containsKey(featureData?.id.toString())
+                        ? AddButton(
+                            productName: featureData!.name.toString(),
+                            productPrice: num.parse(featureData!.price!),
+                            productId: featureData!.id.toString(),
+                            height: 40,
+                            width: 85,
+                          )
+                        : AddButton(
+                            productName: featureData!.name.toString(),
+                            productPrice: num.parse(featureData!.price!),
+                            productId: featureData!.id.toString(),
+                            textTile: 'Add',
+                            height: 40,
+                            width: 85,
+                          );
+                  })
                 ],
               )
             ],

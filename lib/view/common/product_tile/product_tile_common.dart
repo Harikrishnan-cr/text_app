@@ -4,6 +4,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intertoons/controller/cart_controller/cart_controller.dart';
 import 'package:intertoons/controller/const/color%20const/colors.dart';
 import 'package:intertoons/controller/const/size/height_width.dart';
 import 'package:intertoons/controller/const/style/Home%20Text/card_text_style.dart';
@@ -21,7 +22,10 @@ final FeaturedProduct? featureData;
   @override
   Widget build(BuildContext context) {
 
-
+        final priceOfProduct = featureData?.specialPrice != 0
+                  ? featureData?.specialPrice.toString()
+                  : featureData?.price.toString();
+              var realPrice = num.parse(priceOfProduct!);
     return GestureDetector(
       onTap: () {
       
@@ -116,17 +120,27 @@ final FeaturedProduct? featureData;
                             ),
                           ],
                         ),
-                        Row(
-                          children: [
-                            GestureDetector(
+                        GetBuilder<CartController>(   
+                          builder: (cartControler) {
                              
+                            return  cartControler.getCartItems.containsKey(featureData!.id.toString()) ? GestureDetector(    
                               child: AddButton(
-                                productPrice: num.parse(featureData!.price!), 
-                                productId: featureData!.id.toString(),
-                                textTile: 'Add',
+                                productName: featureData!.name.toString(),
+                                productPrice: realPrice,  
+                                productId: featureData!.id.toString(), 
+                                    
                               ),
-                            )
-                          ],
+                            ) 
+                            
+                            : GestureDetector(   
+                              child: AddButton(
+                                 productName: featureData!.name.toString(),
+                                productPrice: realPrice, 
+                                productId: featureData!.id.toString(),
+                                textTile: 'Add',     
+                              ),
+                            );
+                          }
                         )
                       ],
                     )
