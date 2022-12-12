@@ -8,7 +8,8 @@ import 'package:intertoons/controller/const/size/height_width.dart';
 import 'package:intertoons/view/common/bottom_bar/bottom_bar.dart';
 import 'package:intertoons/view/common/catagory_tile/catagory_tile.dart';
 import 'package:intertoons/view/common/circular_progress_indicator/circular_progress_common.dart';
-import 'package:intertoons/view/menu/menu_items/menu_items.dart';
+import 'package:intertoons/view/menu_screen/menu_items/menu_items.dart';
+
 
 
 

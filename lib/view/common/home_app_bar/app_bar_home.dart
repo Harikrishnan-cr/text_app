@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:intertoons/controller/cart_controller/cart_controller.dart';
 import 'package:intertoons/controller/const/color%20const/colors.dart';
 import 'package:intertoons/controller/const/size/height_width.dart';
+import 'package:intertoons/view/cart_screen/cart_screen.dart';
 
-import 'package:intertoons/view/cart/cart_screen.dart';
+
 
 AppBar appBarHome() {
   return AppBar(

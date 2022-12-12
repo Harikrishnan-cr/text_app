@@ -10,12 +10,12 @@ import 'package:intertoons/controller/home_data_contoller/home_contorller.dart';
 
 import 'package:intertoons/view/common/app_common_head/app_heading.dart';
 import 'package:intertoons/view/common/home_app_bar/app_bar_home.dart';
-import 'package:intertoons/view/home/additional_banner/additional_banners.dart';
-import 'package:intertoons/view/home/best_seller/best_seller.dart';
 
-import 'package:intertoons/view/home/catagory/catagory_widget.dart';
-import 'package:intertoons/view/home/feature_products/feature_products.dart';
-import 'package:intertoons/view/home/slider/slider_screen.dart';
+import 'package:intertoons/view/home_screen/additional_banner/additional_banners.dart';
+import 'package:intertoons/view/home_screen/best_seller/best_seller.dart';
+import 'package:intertoons/view/home_screen/catagory/catagory_widget.dart';
+import 'package:intertoons/view/home_screen/feature_products/feature_products.dart';
+import 'package:intertoons/view/home_screen/slider/slider_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);

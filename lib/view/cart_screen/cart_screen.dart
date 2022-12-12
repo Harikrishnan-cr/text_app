@@ -10,8 +10,8 @@ import 'package:intertoons/controller/const/color%20const/colors.dart';
 import 'package:intertoons/controller/const/style/Home%20Text/card_text_style.dart';
 import 'package:intertoons/controller/const/style/text_style.dart';
 import 'package:intertoons/controller/home_data_contoller/home_contorller.dart';
+import 'package:intertoons/view/cart_screen/cart_widget/cart_widget_tile.dart';
 
-import 'package:intertoons/view/cart/cart_widget/cart_widget_tile.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: greenColour,
-        title: const Text('Cart'),
+        title: const Text('Cart')
       ),
       body: GetBuilder<CartController>(builder: (controller) {
         final cartData = controller.getCartItems.values.toList();

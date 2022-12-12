@@ -4,8 +4,9 @@ import 'package:intertoons/controller/catagory_controller/catagory_controller.da
 import 'package:intertoons/controller/const/color%20const/colors.dart';
 
 import 'package:intertoons/controller/const/style/text_style.dart';
+import 'package:intertoons/view/menu_screen/menu_items/menu_items.dart';
 
-import 'package:intertoons/view/menu/menu_items/menu_items.dart';
+
 
 class MenuScreen extends StatelessWidget {
   MenuScreen({Key? key}) : super(key: key);

@@ -7,9 +7,10 @@ import 'package:intertoons/controller/catagory_controller/catagory_controller.da
 import 'package:intertoons/controller/const/color%20const/colors.dart';
 import 'package:intertoons/controller/const/style/text_style.dart';
 import 'package:intertoons/controller/home_data_contoller/home_contorller.dart';
-import 'package:intertoons/view/cart/cart_screen.dart';
-import 'package:intertoons/view/home/home_screen.dart';
-import 'package:intertoons/view/menu/menu_screen.dart';
+import 'package:intertoons/view/cart_screen/cart_screen.dart';
+import 'package:intertoons/view/home_screen/home_screen.dart';
+import 'package:intertoons/view/menu_screen/menu_screen.dart';
+
 
 class BottomBarScreen extends StatelessWidget {
   BottomBarScreen({Key? key}) : super(key: key);
